@@ -1,0 +1,14 @@
+name: Hello World Workflow
+
+# The Trigger
+on: [push] 
+
+# The "Recipe"
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print a message
+        run: echo "Hello! You just pushed code to the repository."
+
+
