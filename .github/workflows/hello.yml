@@ -1,14 +1,37 @@
-name: Hello World Workflow
+# 1. The Name (Appears in the GitHub UI)
+name: Phase 1 Learning Workflow
 
-# The Trigger
-on: [push] 
+# 2. The Triggers
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:      # Allows manual triggering
 
-# The "Recipe"
+# 3. The Jobs
 jobs:
-  say-hello:
+  explore-github-actions: # This is the internal ID of the job
+    name: Exploration Job # This is what you see in the UI
     runs-on: ubuntu-latest
+    
+    # 4. The Steps
     steps:
-      - name: Print a message
-        run: echo "Hello! You just pushed code to the repository."
+      # Step A: The "Uses" Action
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        # Now the runner has a copy of your project files.
 
+      # Step B: A Simple "Run" Command
+      - name: Print a greeting
+        run: echo "The job was triggered by a ${{ github.event_name }} event."
 
+      # Step C: Multi-line "Run" Command
+      # Use the pipe (|) character for multiple lines
+      - name: List files in the repository
+        run: |
+          echo "Here are the files in the repository:"
+          ls -R
+      
+      # Step D: Using Variables (Contexts)
+      # GitHub provides automatic variables under the 'github' context
+      - name: Show branch name
+        run: echo "This is running on branch ${{ github.ref }}"
